@@ -1,39 +1,25 @@
-from pyreplib import replay, utils
 import shutil, os, hashlib
 
 already_seen = set()
 
-def players_date(rep):
-    s = ''
-    for p in rep.players:
-        s += p
-    s += rep.date
-
-def add_from_prefix(prefix):
+def add_from_prefix(prefix, fprefix=''):
     print 'working on', prefix
     for dname in os.listdir(prefix):
-        print dname
-        for fname in os.listdir(prefix + dname):
-            s = players_date(replay.Replay(fname))
-            if (s not in already_seen):
-                shutil.copyfile(prefix + dname + '/' + fname, 'replays/' + dname + '/' + fname)
-                already_seen.add(s)
-                print 'added:', fname
-            else:
-                print 'already seen:', fname
+        if os.path.isdir(prefix+dname):
+            print dname
+            for fname in os.listdir(prefix + dname):
+                fullfn = prefix + dname + '/' + fname
+                h = hashlib.sha256(open(fullfn, 'rb').read())
+                if (h.hexdigest() not in already_seen):
+                    shutil.copyfile(fullfn, 'replays/' + dname + '/' + fprefix + fname)
+                    already_seen.add(h.hexdigest())
+                    print 'added:', fullfn
+                else:
+                    print 'already seen:', fullfn
 
 if __name__ == '__main__':
-    shutil.copytree('../iccup/replays', 'replays')
-    print 'added all iccup replays'
-    for dname in os.listdir('replays'):
-        for fname in os.listdir('replays/' + dname):
-            print fname
-            try:
-                s = players_date(replay.Replay(fname))
-                already_seen.add(s)
-                print 'added:', fname
-            except:
-                print 'didnt work on', fname
-    add_from_prefix('../teamliquid/replays')
-    add_from_prefix('../gosugamers/replays')
+    add_from_prefix('replays/', 'HERE')
+    add_from_prefix('../iccup/replays/', 'IC')
+    add_from_prefix('../teamliquid/replays/', 'TL')
+    add_from_prefix('../gosugamers/replays/', 'GG')
 
