@@ -41,12 +41,16 @@ def move_if_needed(prefix):
                 if fname[-3:] == 'rep':
                     fullfn = prefix + dname + '/' + fname
                     print fullfn
-                    rep = replay.Replay(fullfn)
-                    mu = match_up(rep)
-                    if dname != mu:
-                        shutil.move(fullfn, prefix + mu + '/' + fname)
-                        print 'moved:', fullfn
-                        print 'to:', prefix+mu+'/'+fname
+                    try:
+                        rep = replay.Replay(fullfn)
+                        mu = match_up(rep)
+                        if dname != mu:
+                            shutil.move(fullfn, prefix + mu + '/' + fname)
+                            print 'moved:', fullfn
+                            print 'to:', prefix+mu+'/'+fname
+                    except replay.InvalidReplayException:
+                        print 'removing', fullfn
+                        shutil.move(fullfn, prefix + 'trash/' + fname)
 
 if __name__ == '__main__':
     if len(sys.argv) < 2:
