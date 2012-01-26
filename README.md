@@ -1,7 +1,7 @@
 Requirements
 ============
-make
-python
+make  
+python  
 pyreplib (optional, for the verification/sorting/trashing part)
 
 Pipeline
