@@ -6,6 +6,7 @@ all:
 	mkdir -p replays/TvT
 	mkdir -p replays/TvZ
 	mkdir -p replays/ZvZ
+	mkdir -p replays/trash
 	python GG_rep_dler.py
 
 clean:

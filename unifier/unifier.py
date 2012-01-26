@@ -19,7 +19,10 @@ def add_from_prefix(prefix, fprefix=''):
 
 if __name__ == '__main__':
     add_from_prefix('replays/', 'HERE')
+    #add_from_prefix('../iccup/iccup_users/', 'IC')
+    #add_from_prefix('../iccup_users/', 'IC')
     add_from_prefix('../iccup/replays/', 'IC')
+    add_from_prefix('../iccup_gosus/', 'IC')
     add_from_prefix('../teamliquid/replays/', 'TL')
     add_from_prefix('../gosugamers/replays/', 'GG')
 

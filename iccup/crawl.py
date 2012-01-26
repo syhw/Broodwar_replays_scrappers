@@ -32,8 +32,8 @@ def dlreps(p):
             failed.append((fullreplay, 0, len(failed)+1)) 
 
 if __name__ == '__main__':
-    #page = urllib2.urlopen(prefix + "/starcraft/replays.html").read()
-    page = urllib2.urlopen(prefix + "/starcraft/replays/user.html").read()
+    page = urllib2.urlopen(prefix + "/starcraft/replays.html").read()
+    #page = urllib2.urlopen(prefix + "/starcraft/replays/user.html").read()
     dlreps(page)
     mnext = re.search(rnext, page)
     print mnext
